@@ -1,0 +1,7 @@
+1. Declare an integer variable 'Enemy Health' and initialize it with a value taken from user input.
+2. Declare two integer pointers '*p*' and *'q'*
+3. Now store the address of variable 'Enemy Health' in pointers '*p*' and *'q'*.
+4. Print *p* and *q* and observe the outputs.
+5. Print '**p', '*q',* 'Enemy Health' ** and observe the outputs.
+6. Now change the value of 'Enemy Health' **again by taking user input.
+7. Repeat step no. 5. and observe the changes in output.

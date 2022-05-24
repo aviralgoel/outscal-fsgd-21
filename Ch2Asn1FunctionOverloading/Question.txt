@@ -1,0 +1,15 @@
+**[Task] - Write a program on Function Overloading**
+
+- Suppose we are creating a game having *Dragon* as the player. // done
+- In the game, our *Dragon* has got three superpowers. It can spit out fire, water or gushes of air. // done
+- You only have permission to create functions with one name *AccessSuperPower* in order to access our *Dragon*'s powers //done
+- Define parameters which will make sure that the player can access all three of the *Dragon's* power in actual combat situations just by changing the arguments of the function. //done
+- You need to implement function overloading by using same of the function but you will create three different functions with different parameters. //done
+- In the main function, call these functions and add some combat messages in those functions to make it fun. //done
+- Print the output in the console or terminal. //done
+
+Make sure you implement the above assignment keeping in mind the Data Abstraction concept, meaning that you have to apply appropriate Access Modifiers!
+
+ **[Submission]**
+
+- Submit this assignment with your repl link.

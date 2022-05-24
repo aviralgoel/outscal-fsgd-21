@@ -1,0 +1,10 @@
+1. Declare an integer variable 'Player Health' and initialize it with a value taken from user input.
+2. Declare an integer pointer '*p*'.
+3. Now store the address of variable 'Player Health in pointer '*p*' using address operator(&).
+4. Print the value of '*p*'.
+
+
+5. Print the value stored in the variable 'Player Health' using the pointer '*p*' by using the access operator(*).
+6. Print the value of the variable 'Player Health' directly and match it with the output got in step 5.
+7. Change the value of 'Player Health' to something else,  by taking user input through pointer '*p'.*
+8. Repeat steps 5 and 6 again. And analyze the results.
