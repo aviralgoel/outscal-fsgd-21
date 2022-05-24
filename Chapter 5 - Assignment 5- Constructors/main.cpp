@@ -4,7 +4,7 @@ using namespace std;
 
 class Player {
 
-    private:
+    protected:
     int health;
     int lives;
 
@@ -35,7 +35,7 @@ class FastPlayer: public Player {
     FastPlayer(float _speed) {
         speed = _speed;
         // how to access this?
-        // cout << "Constructing FastPlayer object with " << health << " health, " << lives << " lives and " << speed << " speed.\n";
+        cout << "Constructing FastPlayer object with " << health << " health, " << lives << " lives and " << speed << " speed.\n";
     }
     ~FastPlayer() {
         cout << "FastPlayer object destroyed\n";
@@ -58,12 +58,13 @@ int main()
     Player* player1 = new Player(100,1);
     Player* player2 = new Player(200,2);
     Player* player3 = new Player(300,3);
-    FastPlayer fastPlayer(100);
+
+    //FastPlayer fastPlayer = new FastPlayer();
+
     localObjects();
     delete player1;
     delete player2;
     delete player3;
-
 
     return 0;
 }

@@ -1,12 +1,16 @@
 #include <iostream>
-class Game
- {
- int x;
- Game() { x = 5; }
-};
-int main()
- {
- Game *game = new Game;
- std::cout << game->x;
- return 0;
+using namespace std;
+
+int main() {
+   int x = 5;
+   int *ptr;
+   int *p;
+   //cout << p;
+   //p = &x;
+   *ptr = x;
+   //p = &x;
+   //cout << "ptr = " << ptr << " p = " << p << endl;
+   //cout << *ptr << ' ';
+   //x = 20;
+   //cout << *ptr << '\n';
 }
