@@ -1,16 +1,30 @@
 #include <iostream>
 using namespace std;
 
+class Player {
+
+    public:
+    void TakeDamage()
+    {
+        cout << "Base class Take Damage\n";
+    }
+
+};
+
+class TankPlayer: public Player {
+
+    public:
+    void TakeDamage()
+    {
+        cout << "Derived class Take Damage\n";
+    }
+};
+
 int main() {
-   int x = 5;
-   int *ptr;
-   int *p;
-   //cout << p;
-   //p = &x;
-   *ptr = x;
-   //p = &x;
-   //cout << "ptr = " << ptr << " p = " << p << endl;
-   //cout << *ptr << ' ';
-   //x = 20;
-   //cout << *ptr << '\n';
+
+    Player player;
+    player.TakeDamage();
+    TankPlayer tank;
+    tank.TakeDamage();
+
 }
