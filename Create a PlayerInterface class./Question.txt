@@ -1,0 +1,13 @@
+
+**[Task]**
+
+1. Create a *PlayerInterface* class.
+2. Add the following pure virtual functions in it :-
+    1. *DoubleJump()*
+    2. *Fire()*
+3. Now create the *Player* class which inherits from the *PlayerInterface* class and implement all virtual functions in the *Player* class.
+4. Add a print statement in every function saying "{function name} is overriden".
+5. Now create an object of the *Player* class and call all functions.
+6. Understand interface is nothing but a pure abstract class where every function is a pure virtual function. Understand what is the use case of interface/pure-abstract class
+
+

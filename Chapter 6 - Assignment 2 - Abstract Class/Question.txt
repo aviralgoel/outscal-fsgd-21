@@ -1,0 +1,11 @@
+**[Task] Write a program to illustrate the concept of abstract class and pure virtual function.**
+
+1. Create a Class *Enemy* and add a pure virtual function *()* in it.
+2. Now create a  *BossEnemy* class that inherits from *Enemy* Class.
+3. Implement  **the *attack()* function in the *BossEnemy* class with the following message
+    1. "Boss is attacking".
+4. Create a pointer of the *Enemy* class*.*
+5. Create an object of *BossEnemy* class.
+6. Store the address of the object of *BossEnemy* class in the pointer of the *Enemy* class.
+7. Call the function *attack()* using the pointer.
+8. Understand the use case of an abstract class, we cant create an object of the abstract class but we can inherit the abstract classes.
