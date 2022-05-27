@@ -10,8 +10,8 @@ class NFSCar {
     int capacity;
     int topSpeed;
 
-    //protected:
-    //string VehicleType;
+    protected:
+    string VehicleType;
 
     public:
     //string VehicleType;
@@ -44,7 +44,7 @@ class NFSCar {
     void CarCrashed() {
         cout << "\nCar Crashed.\n";
     }
-    //why is it called if its virtual?
+
     virtual ~NFSCar() {
         CarCrashed();
     }
@@ -55,7 +55,7 @@ class NFSCar {
 class Lambhorghini : public NFSCar {
 
     // why does this not get inherited? how to avoid repetition.
-    string VehicleType =  "Lambhorghini";
+    VehicleType =  "Lambhorghini";
     void StartVehicle() {
         cout << "Starting my car type: " << VehicleType << ".\n";
     }
@@ -66,7 +66,7 @@ class Lambhorghini : public NFSCar {
 };
 class BMW : public NFSCar {
 
-    string VehicleType =  "BMW";
+    VehicleType =  "BMW";
     void StartVehicle() {
         cout << "Starting my car type: " << VehicleType << ".\n";
     }

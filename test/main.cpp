@@ -1,30 +1,19 @@
 #include <iostream>
-using namespace std;
-
-class Player {
-
-    public:
-    void TakeDamage()
-    {
-        cout << "Base class Take Damage\n";
-    }
-
+class Game {
+public:
+ virtual void game_type () {
+ std::cout << "1 ";
+ }
 };
-
-class TankPlayer: public Player {
-
-    public:
-    void TakeDamage()
-    {
-        cout << "Derived class Take Damage\n";
-    }
+class OutscalGame : public Game {
+public:
+ void game_type () {
+ std::cout << "2 ";
+ }
 };
-
 int main() {
-
-    Player player;
-    player.TakeDamage();
-    TankPlayer tank;
-    tank.TakeDamage();
-
+ Game *game = new OutscalGame;
+ game->Game::game_type();
+ game->game_type();
+ return 0;
 }
