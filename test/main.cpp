@@ -1,7 +1,28 @@
 #include <iostream>
+class Outscal {
+public:
+ Outscal () {
+ std::cout << "1 ";
+ }
+};
+class OutscalGame : public Outscal {
+public:
+ OutscalGame() {
+ std::cout << "2 ";
+ }
+};
+class OutscalDev : public OutscalGame {
+public:
+ OutscalDev() {
+ std::cout << "3\n";
+ }
+};
+void test () {
+ OutscalGame clan;
+ std::cout << "\n";
+}
 int main() {
-	int num = 111;
-        void *ptr = #
-        std::cout << (int)*ptr;
-	return 0;
+ OutscalDev clan1;
+ test();
+ return 0;
 }
