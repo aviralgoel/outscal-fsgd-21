@@ -1,7 +1,7 @@
 #include <iostream>
 #include <memory>
 #include<cstdlib>
-
+#include <time.h>
 #define MAX_HEALTH 300
 using namespace std;
 
