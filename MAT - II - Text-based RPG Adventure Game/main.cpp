@@ -2,8 +2,10 @@
 #include <memory>
 #include <map>
 #include <string>
+#include <vector>
 
 using namespace std;
+
 
 // This is the base class for all actors of the game, both Hero and Enemy inherit from it.
 class Actor
@@ -48,14 +50,14 @@ public:
     {
 
         health = 50 + (5*_currentLevel)/2;
-        cout << "A Enemy has spawned near you with " << health << " health!\n";
+        //cout << "A Enemy has spawned near you with " << health << " health!\n";
         meleeDamange = 5 + (5*_currentLevel)/2;
 
     }
     // public:
     virtual ~Enemy()
     {
-        cout <<"The enemy has been killed\n";
+        //cout <<"The enemy has been killed\n";
     };
     virtual char RandomChoice() // method to decide whether the enemy chooses to attack or heal randomly
     {
@@ -258,10 +260,58 @@ public:
     }
     ~Hero()
     {
-        cout << "Your hero has been killed by the evil monsters\n";
+        cout << "Your hero bids goodbye\n";
     }
 
 
+};
+class Level
+{
+private:
+    int numOfEnemies;
+    int levelNumber;
+    vector<std::shared_ptr<Enemy>> enemies;
+    const char * const specialAbilities[4] = {"CriticalHit","Blocker", "LifeSteal", "RangedAttack"};
+    const char * const gearsOfArms[5] = {"Map","Sword","Shield", "Armour", "Bow"};
+    void generateEnemies()
+    {
+        for(int i = 0; i < levelNumber ; i++)
+        {
+            enemies.push_back(std::shared_ptr<Enemy>(new Enemy(levelNumber)));
+        }
+    }
+public:
+    Level(int _level)
+    {
+        cout <<"Tread lighty, danger awaits at every corner of this level!\n";
+        numOfEnemies = _level;
+        levelNumber = _level;
+        generateEnemies();
+    }
+
+    int getLevelNumber()
+    {
+        return levelNumber;
+    }
+    int getNumOfEnemies()
+    {
+        return numOfEnemies;
+    }
+    string getGearOfArms(int _level)
+    {
+        return gearsOfArms[_level-1];
+
+    }
+    string getSpecialAbility(int _level)
+    {
+        return specialAbilities[_level-1];
+
+    }
+
+    vector<std::shared_ptr<Enemy>> listOfEnemies()
+    {
+        return enemies;
+    }
 };
 class Game
 {
@@ -279,14 +329,13 @@ public:
     {
         if(!player)
         {
-            cout << "Player is has not been spawned correctly!\n";
+            cout << "Player  has not been spawned correctly!\n";
             return;
         }
         for(int i = 1 ; i < 6 ; i++)
         {
             player->DisplayPlayerStats();
             LoadLevel(i);
-            AwardPlayer(i);
         }
         player->DisplayPlayerStats();
         FinalLevel();
@@ -316,11 +365,12 @@ private:
 
     void LoadLevel(int _currentPlayerLevel) // basic mechanism of first 5 levels
     {
-        int numOfEnemies = _currentPlayerLevel;
+
+        unique_ptr<Level> currentLevel = make_unique<Level>(_currentPlayerLevel);
         cout <<"You have stepped in to level " << _currentPlayerLevel <<endl;
-        cout <<"Tread lighty, danger awaits at every corner!\n";
-        shared_ptr<Enemy> e1 = make_shared<Enemy>(_currentPlayerLevel);
-        numOfEnemies--;
+        vector<std::shared_ptr<Enemy>> levelEnemies = currentLevel->listOfEnemies();
+        cout << "This level has " << currentLevel->getNumOfEnemies() << " enemies\n";
+        std::shared_ptr<Enemy> e1 = levelEnemies[0];
         while(player->getHealth() > 0 && e1->getHealth() > 0) // while the player is alive and enemy is alive
         {
             cout <<"Quick Press H (Heal) or M (Melee Attack) or R (Ranged Attack)\n";
@@ -336,11 +386,16 @@ private:
             player->TakeDamage(damageToPlayer); // damage to player
             cout << "Player Health is: " << player->getHealth() << endl;
             cout << "Enemy Health is: " << e1->getHealth() << endl;
-            if(numOfEnemies && e1->getHealth() <= 0) //more enemies for high levels, spawn another enemy when one enemy dead
+            if(e1->getHealth() < 1) // is one enemy is dead and there are more left
             {
-                e1.reset();
-                e1 = make_shared<Enemy>(_currentPlayerLevel);
-                numOfEnemies--;
+                cout << "The enemy has been killed!\n";
+                levelEnemies.erase(levelEnemies.begin());
+                if(!levelEnemies.empty())
+                {
+
+                    e1 = levelEnemies[0];
+                    cout << "Another enemy appears with "<< e1->getHealth()<< "\n";
+                }
             }
 
         }
@@ -348,6 +403,8 @@ private:
         {
             cout << "Your hero dies of wounds of the war.\n The Murlocs and his army is victorious.\n";
         }
+        player->setGearsofArms(currentLevel->getGearOfArms(_currentPlayerLevel));
+        player->setSA(currentLevel->getSpecialAbility(_currentPlayerLevel));
 
 
 
@@ -380,32 +437,6 @@ private:
         else
         {
             return actor->Heal();
-        }
-    }
-private:
-    void AwardPlayer(int _currentPlayerLevel) //when player completes a level, unlock things for player depending on the level
-    {
-        switch(_currentPlayerLevel)
-        {
-        case 1:
-            player->setGearsofArms("Map");
-            player->setSA("CriticalHit");
-            break;
-        case 2:
-            player->setGearsofArms("Sword");
-            player->setSA("Blocker");
-            break;
-        case 3:
-            player->setGearsofArms("Shield");
-            player->setSA("LifeSteal");
-            break;
-        case 4:
-            player->setGearsofArms("Armour");
-            player->setSA("RangedAttack");
-            break;
-        case 5:
-            player->setGearsofArms("Bow");
-            break;
         }
     }
 private:
@@ -447,6 +478,7 @@ int main()
     Game game;
     game.Start();
     game.Update();
+
 
 
 
