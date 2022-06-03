@@ -37,6 +37,7 @@ public:
     }
     virtual int attackMelee() = 0; // function common and with different implementations for each derived class
     virtual int Heal() = 0;
+    virtual int attackRanged() = 0;
 
 };
 
@@ -86,6 +87,11 @@ public:
         lastDamageTaken = _damage;
         health -= _damage;
     }
+    int attackRanged() override
+    {
+        cout << "Enemy class cannot do ranged attack yet!\n";
+        return 0;
+    }
 
 };
 
@@ -126,6 +132,11 @@ public:
         }
         lastDamageTaken = _damage;
         health -= _damage;
+    }
+    int attackRanged() override
+    {
+        cout << "Enemy class cannot do ranged attack yet!\n";
+        return 0;
     }
 
 };
@@ -316,7 +327,7 @@ public:
 class Game
 {
 
-    unique_ptr<Hero> player;
+    shared_ptr<Hero> player;
 public:
     void Start()
     {
@@ -360,7 +371,7 @@ private:
 
     void SpawnPlayer() // instantiate the player
     {
-        player = make_unique<Hero>();
+        player = make_shared<Hero>();
     }
 
     void LoadLevel(int _currentPlayerLevel) // basic mechanism of first 5 levels
@@ -380,9 +391,9 @@ private:
                 cin >> ch;
             }
             while(ch!='H' && ch!='M' && ch!='R'); // player enters his action
-            int damageToEnemy = PlayerChoice(ch);
+            int damageToEnemy = ActorChoice(ch, player);
             e1->TakeDamage(damageToEnemy); // damage to enemy
-            int damageToPlayer = EnemyChoice(e1->RandomChoice(), e1); //random enemy action
+            int damageToPlayer = ActorChoice(e1->RandomChoice(), e1); //random enemy action
             player->TakeDamage(damageToPlayer); // damage to player
             cout << "Player Health is: " << player->getHealth() << endl;
             cout << "Enemy Health is: " << e1->getHealth() << endl;
@@ -410,29 +421,34 @@ private:
 
     }
 
-    int PlayerChoice(char _ch) // player action decider based on the input
-    {
-        if(_ch=='H')
-        {
-            player->Heal();
-            return 0;
-        }
-        else if(_ch=='M')
-        {
-            return player->attackMelee();
-        }
-        else
-        {
-            return player->attackRanged();
-        }
+//    int PlayerChoice(char _ch) // player action decider based on the input
+//    {
+//        if(_ch=='H')
+//        {
+//            player->Heal();
+//            return 0;
+//        }
+//        else if(_ch=='M')
+//        {
+//            return player->attackMelee();
+//        }
+//        else
+//        {
+//            return player->attackRanged();
+//        }
+//
+//    }
 
-    }
-
-    int EnemyChoice(char _ch, shared_ptr<Enemy> actor) //enemy action decider based on random generated input
+    int ActorChoice(char _ch, shared_ptr<Actor> actor) //enemy action decider based on random generated input
     {
+
         if(_ch=='M')
         {
             return actor->attackMelee();
+        }
+        else if(_ch=='R')
+        {
+            return actor->attackRanged();
         }
         else
         {
@@ -456,9 +472,9 @@ private:
                 cin >> ch;
             }
             while(ch!='H' && ch!='M' && ch!='R');
-            int damageToEnemy = PlayerChoice(ch);
+            int damageToEnemy = ActorChoice(ch, player);
             e1->TakeDamage(damageToEnemy);
-            int damageToPlayer = EnemyChoice(e1->RandomChoice(), e1);
+            int damageToPlayer = ActorChoice(e1->RandomChoice(), e1);
             player->TakeDamage(damageToPlayer);
             cout << "Player Health is: " << player->getHealth() << endl;
             cout << "Enemy Health is: " << e1->getHealth() << endl;
