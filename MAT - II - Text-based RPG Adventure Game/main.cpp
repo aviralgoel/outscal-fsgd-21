@@ -158,7 +158,7 @@ public:
         cout << "PLAYER STATS:\n";
         cout << "Health of Hero: " << health << "\n";
         cout << "Melee Damage: " << meleeDamange << "\t Ranged Damage: " << rangedDamage << "\n";
-        cout << "Defence Power: " << defence << "\n";
+
         cout << "Gears of Arms Collected: ";
         // display all the items that have been found
         for (const auto &ele : gearsOfArms)
